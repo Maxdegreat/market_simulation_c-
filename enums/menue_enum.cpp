@@ -1,0 +1,1 @@
+enum menue_enum { view_store, remove_from_store, add_to_store, close_for_the_day };
