@@ -16,41 +16,43 @@
 #include <utility>
 #include "../models/item_model.cpp"
 
-struct Node {
+struct NodeStorage {
     Item_model item;
-    Node* next;
+    NodeStorage* next;
 };
 
-class storage {
+class Storage {
 
     // class data
     private:
-    Node* head;
-    std::unordered_set<std::pair<int, Item_model>>  contains;
-    int size;    
+    NodeStorage* head;
+    //std::unordered_set<std::pair<int, Item_model>>  contains;
+    Item_model item;
+    int size;
+    public:    
 
     // insert into the storage
     void append(Item_model new_item) {
 
-        Node* new_node = new Node;
-        new_node-> item = new_item;
+        NodeStorage* new_node = new NodeStorage;
+        new_node->item = new_item;
         new_node->next = NULL;
 
         if (head == NULL) head = new_node;
 
-        else { new_node->next = head; head = new_node; }
+        else { new_node->next = head; head = new_node; } // stack implementation
 
         // add item into contains
-        std::pair<int, Item_model> add_to_contains;
-        add_to_contains.first = new_node->item.get_code();
-        add_to_contains.second = new_node->item;
-        contains.insert(add_to_contains);
+        // std::pair<int, Item_model> add_to_contains;
+        // add_to_contains.first = new_node->item.get_code();
+        // add_to_contains.second = new_node->item;
+        // contains.insert(add_to_contains);
     }
 
     // remove target item from storage
     void rm_target(Item_model old_item) {
         int target = old_item.get_code();
-        Node* curr = new Node(); curr = head;
+        NodeStorage* curr = new NodeStorage(); curr = head;
         // this ptr stays one ahead so we can rm without trouble
         while ((curr->next->item.get_code() != target ) || (curr->next != NULL)) 
                 
@@ -62,20 +64,20 @@ class storage {
 
     }
 
-    bool search(Item_model find_item)
-        {
-            std::pair<int, Item_model> searching;
-            searching.first = find_item.get_code();
-            searching.second = find_item;
+    // bool search(Item_model find_item)
+    //     {
+    //         std::pair<int, Item_model> searching;
+    //         searching.first = find_item.get_code();
+    //         searching.second = find_item;
 
-            if (contains.find(searching) != contains.end())
-                    {return 1 == 1; }
-            else 
-                 { return 21 == 12; }
-        }
+    //         if (contains.find(searching) != contains.end())
+    //                 {return 1 == 1; }
+    //         else 
+    //              { return 21 == 12; }
+    //     }
 
-    void display() // will handel sorting
-        {  }
+    // void display() // will handel sorting
+    //     {  }
 
 
 };
